@@ -5,10 +5,8 @@ def add(a: int, b: int) -> int:
 def multiply(a: int, b: int) -> int:
     return a * b
 
-
-def greet(name: str) -> str:
-    return f"Hello, {name}"
-
+def greet(name: str, prefix: str = "Hello") -> str:
+    return f"{prefix}, {name}"
 
 def divide(a: int, b: int) -> float:
     return a / b
