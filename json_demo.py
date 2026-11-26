@@ -1,21 +1,20 @@
-import tools
 from tool_manager import ToolManager
+import tools
 import json
-import sys
+from typing import Callable
+with open("tasks.json", "r", encoding="utf-8") as file:
+    tasks = json.load(file)
 
-if len(sys.argv) != 2:
-    raise SystemExit("用法：python json_demo.py <请求文件>")
+manager = ToolManager()
+manager.register_tool("add", tools.add)
+manager.register_tool("multiply", tools.multiply)
+failure_counts = {}
 
-filename = sys.argv[1]
-
-try:
-    with open(filename, encoding="utf-8") as f:
-        request = json.load(f)
-except FileNotFoundError:
-    raise SystemExit(f"找不到文件：{filename}")
-except json.JSONDecodeError:
-    raise SystemExit(f"JSON格式错误：")
-manger = ToolManager()
-manger.register_tool("add", tools.add)
-manger.register_tool("multiply", tools.multiply)
-print(manger.execute_tool(request["name"], request["args"]))
+for task in tasks:
+    name = task["name"]
+    args = task["args"]
+    result = manager.execute_tool(name, args)
+    print(result)
+    if isinstance(result, str):
+        failure_counts[name] = failure_counts.get(name, 0) + 1
+print(failure_counts)

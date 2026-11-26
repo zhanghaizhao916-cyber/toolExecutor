@@ -1,0 +1,6 @@
+[
+    {"name": "multiply", "args": {"a": 3, "b": 4}},
+    {"name": "missing_tool", "args": {}},
+    {"name": "add", "args": {"a": 2, "b": -2}},
+    {"name": "missing_tool", "args": {}}
+]
